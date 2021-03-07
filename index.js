@@ -114,7 +114,7 @@ SmartLedStripAccessory.prototype = {
 
       let brightness = this.getBrightness();
       let isOn;
-
+      this.log("Hello")
       if (this.isOn() && !isOn) {
         for (let tempBrightness = 0; tempBrightness <= brightness; tempBrightness++) {
           let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), tempBrightness]);
@@ -150,7 +150,7 @@ SmartLedStripAccessory.prototype = {
   },
 
   updateRGB: function (red, green, blue) {
-    this.log("Setting rgb values to: Red: " + red + " Green: " + green + " Blue: " + blue);
+    // this.log("Setting rgb values to: Red: " + red + " Green: " + green + " Blue: " + blue);
     piblaster.setPwm(this.rPin, red / 255);
     piblaster.setPwm(this.gPin, green / 255);
     piblaster.setPwm(this.bPin, blue / 255);
