@@ -17,21 +17,21 @@
                 "title": "Red Pin",
                 "type": "integer",
                 "required": true,
-                "placeholder": 22,
+                "default": 22,
                 "description": "GPIO pin that is used to set red channel."
             },
             "gPin": {
                 "title": "Green Pin",
                 "type": "integer",
                 "required": true,
-                "placeholder": 27,
+                "default": 27,
                 "description": "GPIO pin that is used to set green channel."
             },
             "bPin": {
                 "title": "Blue Pin",
                 "type": "integer",
                 "required": true,
-                "placeholder": 17,
+                "default": 17,
                 "description": "GPIO pin that is used to set blue channel."
             }
         }

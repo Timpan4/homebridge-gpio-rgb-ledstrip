@@ -15,7 +15,7 @@ module.exports = function (homebridge) {
 
 function SmartLedStripAccessory(log, config) {
   this.log = log;
-  this.log(config);
+  // this.log(config);  used for debugging
   this.name = config['name'];
 
   this.rPin = config['rPin'];
