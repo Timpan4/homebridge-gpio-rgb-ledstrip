@@ -119,15 +119,17 @@ SmartLedStripAccessory.prototype = {
           this.updateRGB(rgb[0], rgb[1], rgb[2]);
           sleep(100);
         }
-        let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
-        this.updateRGB(0, 0, 0);
+        // let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
+        // this.updateRGB(0, 0, 0);
         return;
       }
 
       this.log(brightness);
       if (brightness != 0) {
+        let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
+        this.updateRGB(rgb[0], rgb[1], rgb[2]);
       } else {
-        this.updateRGB(0, 0, 0);
+        // this.updateRGB(0, 0, 0);
       }
     }
   },
