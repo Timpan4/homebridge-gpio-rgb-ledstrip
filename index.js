@@ -116,6 +116,7 @@ SmartLedStripAccessory.prototype = {
       let isOn;
       this.log("Hello")
       if (this.isOn() && !isOn) {
+        this.log("Turning on");
         for (let tempBrightness = 0; tempBrightness <= brightness; tempBrightness++) {
           let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), tempBrightness]);
           this.updateRGB(rgb[0], rgb[1], rgb[2]);
@@ -133,7 +134,7 @@ SmartLedStripAccessory.prototype = {
       }
 
       if (!this.isOn()) {
-
+        this.log("Turning off");
         while (brightness != 0) {
           brightness--;
           let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
