@@ -1,5 +1,5 @@
 {
-  "name": "homebridge-gpio-rgb-ledstrip-edit-tim",
+  "name": "homebridge-gpio-rgb-ledstrip",
   "description": "Raspberry Pi GPIO based LED Strip plugin for Homebridge",
   "version": "0.1.3",
   "author": "Tim",
