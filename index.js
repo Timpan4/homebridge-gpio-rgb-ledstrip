@@ -1,6 +1,6 @@
 "use strict";
 
-var Service, Characteristic;
+var Service, Characteristic, isOn;
 
 const piblaster = require('pi-blaster.js');
 const converter = require('color-convert');
@@ -113,7 +113,6 @@ SmartLedStripAccessory.prototype = {
     if (this.enabled) {
 
       let brightness = this.getBrightness();
-      let isOn;
       this.log("Hello")
       if (this.isOn() && !isOn) {
         this.log("Turning on");
