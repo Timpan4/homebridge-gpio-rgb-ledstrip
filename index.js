@@ -114,6 +114,8 @@ SmartLedStripAccessory.prototype = {
 
       let brightness = this.getBrightness();
       this.log("Hello")
+
+      //fade in effect when turning on
       if (this.isOn() && !isOn) {
         this.log("Turning on");
         for (let tempBrightness = 0; tempBrightness <= brightness; tempBrightness++) {
@@ -132,6 +134,7 @@ SmartLedStripAccessory.prototype = {
         this.updateRGB(rgb[0], rgb[1], rgb[2]);
       }
 
+      // fade out effect when turning off
       if (!this.isOn()) {
         this.log("Turning off");
         while (brightness != 0) {
