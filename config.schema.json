@@ -2,7 +2,7 @@
     "pluginAlias": "SmartLedStrip",
     "pluginType": "accessory",
     "headerDisplay": "[RPi](https://www.raspberrypi.org) GPIO based LED Strip plugin for [Homebridge](https://github.com/nfarina/homebridge).",
-    "footerDisplay": "Raise [Issues](https://github.com/manfredipist/homebridge-gpio-rgb-ledstrip/issues) or submit [Pull Requests](https://github.com/manfredipist/homebridge-gpio-rgb-ledstrip/pulls) on [Project Page](https://github.com/manfredipist/homebridge-gpio-rgb-ledstrip).",
+    "footerDisplay": "Raise [Issues](https://github.com/Timpan4/homebridge-gpio-rgb-ledstrip/issues) or submit [Pull Requests](https://github.com/Timpan4/homebridge-gpio-rgb-ledstrip/pulls) on [Project Page](https://github.com/Timpan4/homebridge-gpio-rgb-ledstrip).",
     "schema": {
         "type": "object",
         "properties": {
