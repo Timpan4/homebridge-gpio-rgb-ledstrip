@@ -112,6 +112,14 @@ SmartLedStripAccessory.prototype = {
   toggleState: function () {
     if (this.enabled) {
       let brightness = this.getBrightness();
+
+      this.log(brightness);
+      if (brightness != 0) {
+        let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
+        this.updateRGB(rgb[0], rgb[1], rgb[2]);
+      } else {
+        // this.updateRGB(0, 0, 0);
+      }
       if (!this.isOn()) {
         while (brightness != 0) {
           brightness -= 1;
@@ -122,14 +130,6 @@ SmartLedStripAccessory.prototype = {
         // let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
         // this.updateRGB(0, 0, 0);
         return;
-      }
-
-      this.log(brightness);
-      if (brightness != 0) {
-        let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
-        this.updateRGB(rgb[0], rgb[1], rgb[2]);
-      } else {
-        // this.updateRGB(0, 0, 0);
       }
     }
   },
