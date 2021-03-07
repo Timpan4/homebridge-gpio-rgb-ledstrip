@@ -12,6 +12,15 @@ module.exports = function (homebridge) {
 
   homebridge.registerAccessory('homebridge-gpio-rgb-ledstrip', 'SmartLedStrip', SmartLedStripAccessory);
 }
+//sleep function
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds) {
+      break;
+    }
+  }
+}
 
 function SmartLedStripAccessory(log, config) {
   this.log = log;
