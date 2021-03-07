@@ -112,17 +112,16 @@ SmartLedStripAccessory.prototype = {
   toggleState: function () {
     if (this.enabled) {
       if (!this.isOn()) {
-        this.log(this.isOn() + ' this is off 1')
         this.updateRGB(0, 0, 0);
         return;
       }
 
       var brightness = this.getBrightness();
+      this.log(brightness);
       if (brightness != 0) {
         var rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
         this.updateRGB(rgb[0], rgb[1], rgb[2]);
       } else {
-        this.log(this.isOn() + ' this is off 2')
         this.updateRGB(0, 0, 0);
       }
     }
