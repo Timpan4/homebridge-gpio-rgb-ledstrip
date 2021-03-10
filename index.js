@@ -5,6 +5,8 @@ var Service, Characteristic, isOn;
 const piblaster = require('pi-blaster.js');
 const converter = require('color-convert');
 const fs = require('fs');
+const Gpio = require('pigpio').Gpio;
+const ledRed = new Gpio(17, { mode: Gpio.OUTPUT });
 
 module.exports = function (homebridge) {
   Service = homebridge.hap.Service;
@@ -27,9 +29,9 @@ function SmartLedStripAccessory(log, config) {
   // this.log(config);  used for debugging
   this.name = config['name'];
 
-  this.rPin = config['rPin'];
-  this.gPin = config['gPin'];
-  this.bPin = config['bPin'];
+  this.rPin = new Gpio(config['rPin'], { mode: Gpio.OUTPUT });;
+  this.gPin = new Gpio(config['gPin'], { mode: Gpio.OUTPUT });;
+  this.bPin = new Gpio(config['bPin'], { mode: Gpio.OUTPUT });;
 
   this.enabled = true;
 
@@ -154,9 +156,9 @@ SmartLedStripAccessory.prototype = {
 
   updateRGB: function (red, green, blue) {
     // this.log("Setting rgb values to: Red: " + red + " Green: " + green + " Blue: " + blue);
-    piblaster.setPwm(this.rPin, red / 255);
-    piblaster.setPwm(this.gPin, green / 255);
-    piblaster.setPwm(this.bPin, blue / 255);
+    this.rPin.pwmWrite(red);
+    this.gPin.pwmWrite(green);
+    this.bPin.pwmWrite(blue);
   }
 
 }
