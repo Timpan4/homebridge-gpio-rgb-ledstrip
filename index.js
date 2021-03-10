@@ -2,16 +2,14 @@
 
 var Service, Characteristic, isOn;
 
-const piblaster = require('pi-blaster.js');
+// const piblaster = require('pi-blaster.js');
 const converter = require('color-convert');
 const fs = require('fs');
 const Gpio = require('pigpio').Gpio;
-const ledRed = new Gpio(17, { mode: Gpio.OUTPUT });
 
 module.exports = function (homebridge) {
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
-
   homebridge.registerAccessory('homebridge-gpio-rgb-ledstrip', 'SmartLedStrip', SmartLedStripAccessory);
 }
 //sleep function
