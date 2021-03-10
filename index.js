@@ -5,7 +5,8 @@ var Service, Characteristic, isOn;
 // const piblaster = require('pi-blaster.js');
 const converter = require('color-convert');
 const fs = require('fs');
-const Gpio = require('pigpio').Gpio;
+// const Gpio = require('pigpio').Gpio;
+const axios = require('axios').default;
 
 module.exports = function (homebridge) {
   Service = homebridge.hap.Service;
@@ -27,9 +28,9 @@ function SmartLedStripAccessory(log, config) {
   // this.log(config);  used for debugging
   this.name = config['name'];
 
-  this.rPin = new Gpio(config['rPin'], { mode: Gpio.OUTPUT });;
-  this.gPin = new Gpio(config['gPin'], { mode: Gpio.OUTPUT });;
-  this.bPin = new Gpio(config['bPin'], { mode: Gpio.OUTPUT });;
+  this.rPin = config['rPin'];
+  this.gPin = config['gPin'];
+  this.bPin = config['bPin'];
 
   this.enabled = true;
 
@@ -120,7 +121,7 @@ SmartLedStripAccessory.prototype = {
         this.log("Turning on");
         for (let tempBrightness = 0; tempBrightness <= brightness; tempBrightness++) {
           let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), tempBrightness]);
-          this.updateRGB(rgb[0], rgb[1], rgb[2]);
+          this.updateRGB(rgb[0], rgb[1], rgb[2], this.rPin, this, this.gPin, this.bPin);
           sleep(10);
         }
 
@@ -131,7 +132,7 @@ SmartLedStripAccessory.prototype = {
       this.log(brightness);
       if (brightness != 0) {
         let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
-        this.updateRGB(rgb[0], rgb[1], rgb[2]);
+        this.updateRGB(rgb[0], rgb[1], rgb[2], this.rPin, this, this.gPin, this.bPin);
       }
 
       // fade out effect when turning off
@@ -140,7 +141,7 @@ SmartLedStripAccessory.prototype = {
         while (brightness != 0) {
           brightness--;
           let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
-          this.updateRGB(rgb[0], rgb[1], rgb[2]);
+          this.updateRGB(rgb[0], rgb[1], rgb[2], this.rPin, this, this.gPin, this.bPin);
           sleep(10);
         }
 
@@ -152,12 +153,21 @@ SmartLedStripAccessory.prototype = {
     }
   },
 
-  updateRGB: function (red, green, blue) {
-    // this.log("Setting rgb values to: Red: " + red + " Green: " + green + " Blue: " + blue);
-    this.rPin.pwmWrite(red);
-    this.log(this.rPin.pwmWrite(red));
-    this.gPin.pwmWrite(green);
-    this.bPin.pwmWrite(blue);
+  updateRGB: function (red, green, blue, rPin, gPin, bPin) {
+    axios.post('localhost:3000/update', {
+      rPin: rPin,
+      gPin: gPin,
+      bPin: bPin,
+      red: red,
+      green: green,
+      blue: blue
+    })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
 }
