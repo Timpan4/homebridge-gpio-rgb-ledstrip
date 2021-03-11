@@ -155,27 +155,27 @@ SmartLedStripAccessory.prototype = {
   updateRGB: function (red, green, blue, rPin, gPin, bPin) {
     let log = this;
     this.log("Trying to send request");
-    let postData = {
-      rPin: rPin,
-      gPin: gPin,
-      bPin: bPin,
-      red: red,
-      green: green,
-      blue: blue
-    };
-
-    var clientServerOptions = {
-      uri: '/update',
-      body: JSON.stringify(postData),
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
+    request.post(
+      '/update',
+      {
+        json: {
+          rPin: rPin,
+          gPin: gPin,
+          bPin: bPin,
+          red: red,
+          green: green,
+          blue: blue
+        },
+      },
+      (error, res, body) => {
+        if (error) {
+          console.error(error)
+          return
+        }
+        console.log(`statusCode: ${res.statusCode}`)
+        console.log(body)
       }
-    }
-    request(clientServerOptions, function (error, response) {
-      console.log(error, response.body);
-      return;
-    });
+    )
     // axios.post('/update', {
     //   rPin: rPin,
     //   gPin: gPin,
