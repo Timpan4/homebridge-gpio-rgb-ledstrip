@@ -126,12 +126,12 @@ SmartLedStripAccessory.prototype = {
 
 
       this.log(brightness);
-      if (brightness != 0) {
-        this.updateRGB(this.getHue(), this.getSaturation(), brightness, this.rPin, this.gPin, this.bPin, 0);
-      }
+      // if () {
+      //   this.updateRGB(this.getHue(), this.getSaturation(), brightness, this.rPin, this.gPin, this.bPin, 0);
+      // }
 
       // fade out effect when turning off
-      if (!this.isOn()) {
+      if (!this.isOn() || brightness != 0) {
         this.log("Turning off");
         this.updateRGB(this.getHue(), this.getSaturation(), brightness, this.rPin, this.gPin, this.bPin, 0);
         isOn = false;
