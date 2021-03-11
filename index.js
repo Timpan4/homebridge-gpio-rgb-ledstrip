@@ -118,41 +118,32 @@ SmartLedStripAccessory.prototype = {
       //fade in effect when turning on
       if (this.isOn() && !isOn) {
         this.log("Turning on");
-        for (let tempBrightness = 0; tempBrightness <= brightness; tempBrightness++) {
-          let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), tempBrightness]);
-          this.updateRGB(rgb[0], rgb[1], rgb[2], this.rPin, this.gPin, this.bPin);
-          sleep(10);
-        }
-
-        isOn = true;
-        return;
+        this.updateRGB(this.getHue(), this.getSaturation(), brightness, this.rPin, this.gPin, this.bPin, 1);
       }
 
-      this.log(brightness);
-      if (brightness != 0) {
-        let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
-        this.updateRGB(rgb[0], rgb[1], rgb[2], this.rPin, this.gPin, this.bPin);
-      }
-
-      // fade out effect when turning off
-      if (!this.isOn()) {
-        this.log("Turning off");
-        while (brightness != 0) {
-          brightness--;
-          let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
-          this.updateRGB(rgb[0], rgb[1], rgb[2], this.rPin, this.gPin, this.bPin);
-          sleep(10);
-        }
-
-        isOn = false;
-        // let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
-        // this.updateRGB(0, 0, 0);
-        return;
-      }
+      isOn = true;
+      return;
     }
+
+    this.log(brightness);
+    if (brightness != 0) {
+      this.updateRGB(this.getHue(), this.getSaturation(), brightness, this.rPin, this.gPin, this.bPin, 0);
+    }
+
+    // fade out effect when turning off
+    if (!this.isOn()) {
+      this.log("Turning off");
+      this.updateRGB(this.getHue(), this.getSaturation(), brightness, this.rPin, this.gPin, this.bPin, 0);
+
+      isOn = false;
+      // let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
+      // this.updateRGB(0, 0, 0);
+      return;
+    }
+
   },
 
-  updateRGB: function (red, green, blue, rPin, gPin, bPin) {
+  updateRGB: function (red, green, blue, rPin, gPin, bPin, onOFF) {
     let log = this;
     this.log("Trying to send request");
     request.post(
@@ -164,7 +155,8 @@ SmartLedStripAccessory.prototype = {
           bPin: bPin,
           red: red,
           green: green,
-          blue: blue
+          blue: blue,
+          onOFF: onOFF
         },
       },
       (error, res, body) => {
