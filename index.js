@@ -139,7 +139,7 @@ SmartLedStripAccessory.prototype = {
         while (brightness != 0) {
           brightness--;
           let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
-          this.updateRGB(rgb[0], rgb[1], rgb[2], this.rPin, this, this.gPin, this.bPin);
+          this.updateRGB(rgb[0], rgb[1], rgb[2], this.rPin, this.gPin, this.bPin);
           sleep(10);
         }
 
