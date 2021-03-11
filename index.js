@@ -154,18 +154,30 @@ SmartLedStripAccessory.prototype = {
   updateRGB: function (red, green, blue, rPin, gPin, bPin) {
     let log = this;
     this.log("Trying to send request");
-    axios.post('/update', {
-      rPin: rPin,
-      gPin: gPin,
-      bPin: bPin,
-      red: red,
-      green: green,
-      blue: blue
-    }).then(function (response) {
-      log.log(response);
-    }).catch(function (error) {
-      log.log(error);
+    axios({
+      method: 'post',
+      url: '/update',
+      data: {
+        rPin: rPin,
+        gPin: gPin,
+        bPin: bPin,
+        red: red,
+        green: green,
+        blue: blue
+      }
     });
+    // axios.post('/update', {
+    //   rPin: rPin,
+    //   gPin: gPin,
+    //   bPin: bPin,
+    //   red: red,
+    //   green: green,
+    //   blue: blue
+    // }).then(function (response) {
+    //   log.log(response);
+    // }).catch(function (error) {
+    //   log.log(error);
+    // });
   }
 
 }
