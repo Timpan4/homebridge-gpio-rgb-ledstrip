@@ -154,7 +154,7 @@ SmartLedStripAccessory.prototype = {
   updateRGB: function (red, green, blue, rPin, gPin, bPin) {
     let log = this;
     this.log("Trying to send request");
-    axios.post('http://khaosmc.asuscomm.com:3000/update', {
+    axios.post('/update', {
       rPin: rPin,
       gPin: gPin,
       bPin: bPin,
