@@ -156,7 +156,7 @@ SmartLedStripAccessory.prototype = {
     let log = this;
     this.log("Trying to send request");
     request.post(
-      '/update',
+      'http://192.168.50.5/update',
       {
         json: {
           rPin: rPin,
