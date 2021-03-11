@@ -119,31 +119,31 @@ SmartLedStripAccessory.prototype = {
       if (this.isOn() && !isOn) {
         this.log("Turning on");
         this.updateRGB(this.getHue(), this.getSaturation(), brightness, this.rPin, this.gPin, this.bPin, 1);
+        isOn = true;
+        return;
       }
 
-      isOn = true;
-      return;
-    }
 
-    this.log(brightness);
-    if (brightness != 0) {
-      this.updateRGB(this.getHue(), this.getSaturation(), brightness, this.rPin, this.gPin, this.bPin, 0);
-    }
 
-    // fade out effect when turning off
-    if (!this.isOn()) {
-      this.log("Turning off");
-      this.updateRGB(this.getHue(), this.getSaturation(), brightness, this.rPin, this.gPin, this.bPin, 0);
+      this.log(brightness);
+      if (brightness != 0) {
+        this.updateRGB(this.getHue(), this.getSaturation(), brightness, this.rPin, this.gPin, this.bPin, 0);
+      }
 
-      isOn = false;
-      // let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
-      // this.updateRGB(0, 0, 0);
-      return;
+      // fade out effect when turning off
+      if (!this.isOn()) {
+        this.log("Turning off");
+        this.updateRGB(this.getHue(), this.getSaturation(), brightness, this.rPin, this.gPin, this.bPin, 0);
+        isOn = false;
+        // let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
+        // this.updateRGB(0, 0, 0);
+        return;
+      }
     }
 
   },
 
-  updateRGB: function (red, green, blue, rPin, gPin, bPin, onOFF) {
+  updateRGB: function (h, s, b, rPin, gPin, bPin, onOFF) {
     let log = this;
     this.log("Trying to send request");
     request.post(
@@ -153,9 +153,9 @@ SmartLedStripAccessory.prototype = {
           rPin: rPin,
           gPin: gPin,
           bPin: bPin,
-          red: red,
-          green: green,
-          blue: blue,
+          h: h,
+          s: s,
+          b: b,
           onOFF: onOFF
         },
       },
