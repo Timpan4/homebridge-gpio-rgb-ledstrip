@@ -155,7 +155,7 @@ SmartLedStripAccessory.prototype = {
   updateRGB: function (red, green, blue, rPin, gPin, bPin) {
     let log = this;
     this.log("Trying to send request");
-    this.log(request.post(
+    request.post(
       'http://192.168.50.5/update',
       {
         json: {
@@ -175,7 +175,7 @@ SmartLedStripAccessory.prototype = {
         console.log(`statusCode: ${res.statusCode}`)
         console.log(body)
       }
-    ));
+    );
     // axios.post('/update', {
     //   rPin: rPin,
     //   gPin: gPin,
