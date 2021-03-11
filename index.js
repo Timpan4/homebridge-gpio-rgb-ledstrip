@@ -165,6 +165,10 @@ SmartLedStripAccessory.prototype = {
         green: green,
         blue: blue
       }
+    }).then(function (response) {
+      log.log(response);
+    }).catch(function (error) {
+      log.log(error);
     });
     // axios.post('/update', {
     //   rPin: rPin,
