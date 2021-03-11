@@ -7,6 +7,7 @@ const converter = require('color-convert');
 const fs = require('fs');
 // const Gpio = require('pigpio').Gpio;
 const axios = require('axios').default;
+const request = require('request');
 
 module.exports = function (homebridge) {
   Service = homebridge.hap.Service;
@@ -154,21 +155,26 @@ SmartLedStripAccessory.prototype = {
   updateRGB: function (red, green, blue, rPin, gPin, bPin) {
     let log = this;
     this.log("Trying to send request");
-    axios({
-      method: 'post',
-      url: '/update',
-      data: {
-        rPin: rPin,
-        gPin: gPin,
-        bPin: bPin,
-        red: red,
-        green: green,
-        blue: blue
+    let postData = {
+      rPin: rPin,
+      gPin: gPin,
+      bPin: bPin,
+      red: red,
+      green: green,
+      blue: blue
+    };
+
+    var clientServerOptions = {
+      uri: '/update',
+      body: JSON.stringify(postData),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
       }
-    }).then(function (response) {
-      log.log(response);
-    }).catch(function (error) {
-      log.log(error);
+    }
+    request(clientServerOptions, function (error, response) {
+      console.log(error, response.body);
+      return;
     });
     // axios.post('/update', {
     //   rPin: rPin,
