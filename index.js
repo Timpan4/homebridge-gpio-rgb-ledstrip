@@ -119,7 +119,7 @@ SmartLedStripAccessory.prototype = {
         this.log("Turning on");
         for (let tempBrightness = 0; tempBrightness <= brightness; tempBrightness++) {
           let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), tempBrightness]);
-          this.updateRGB(rgb[0], rgb[1], rgb[2], this.rPin, this, this.gPin, this.bPin);
+          this.updateRGB(rgb[0], rgb[1], rgb[2], this.rPin, this.gPin, this.bPin);
           sleep(10);
         }
 
@@ -130,7 +130,7 @@ SmartLedStripAccessory.prototype = {
       this.log(brightness);
       if (brightness != 0) {
         let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
-        this.updateRGB(rgb[0], rgb[1], rgb[2], this.rPin, this, this.gPin, this.bPin);
+        this.updateRGB(rgb[0], rgb[1], rgb[2], this.rPin, this.gPin, this.bPin);
       }
 
       // fade out effect when turning off
