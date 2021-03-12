@@ -32,6 +32,7 @@ function SmartLedStripAccessory(log, config) {
   this.rPin = config['rPin'];
   this.gPin = config['gPin'];
   this.bPin = config['bPin'];
+  this.ip = config['ip'];
 
   this.enabled = true;
 
@@ -118,7 +119,7 @@ SmartLedStripAccessory.prototype = {
       //fade in effect when turning on
       if (this.isOn() && !isOn) {
         this.log("Turning on");
-        this.updateRGB(this.getHue(), this.getSaturation(), brightness, this.rPin, this.gPin, this.bPin, 1);
+        this.updateRGB(this.getHue(), this.getSaturation(), brightness, this.rPin, this.gPin, this.bPin, 1, this.ip);
         isOn = true;
         return;
       }
@@ -133,7 +134,7 @@ SmartLedStripAccessory.prototype = {
       // fade out effect when turning off
       if (!this.isOn() || brightness != 0) {
         this.log("Turning off");
-        this.updateRGB(this.getHue(), this.getSaturation(), brightness, this.rPin, this.gPin, this.bPin, 0);
+        this.updateRGB(this.getHue(), this.getSaturation(), brightness, this.rPin, this.gPin, this.bPin, 0, this.ip);
         isOn = false;
         // let rgb = converter.hsv.rgb([this.getHue(), this.getSaturation(), brightness]);
         // this.updateRGB(0, 0, 0);
@@ -143,11 +144,11 @@ SmartLedStripAccessory.prototype = {
 
   },
 
-  updateRGB: function (h, s, b, rPin, gPin, bPin, onOFF) {
+  updateRGB: function (h, s, b, rPin, gPin, bPin, onOFF, ip) {
     let log = this;
     this.log("Trying to send request");
     request.post(
-      'http://192.168.50.5/update',
+      ip,
       {
         json: {
           rPin: rPin,

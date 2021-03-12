@@ -33,6 +33,13 @@
                 "required": true,
                 "default": 17,
                 "description": "GPIO pin that is used to set blue channel."
+            },
+            "ip": {
+                "title": "IP of device",
+                "type": "String",
+                "required": true,
+                "default": "http: //192.168.50.5/update",
+                "description": "IP for this device"
             }
         }
     }
