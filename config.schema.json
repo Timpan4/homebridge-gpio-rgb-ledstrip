@@ -38,7 +38,7 @@
                 "title": "IP of device",
                 "type": "string",
                 "required": true,
-                "default": "http: //192.168.50.5/update",
+                "default": "http://192.168.50.5/update",
                 "description": "IP for this device"
             }
         }
